@@ -121,7 +121,7 @@
                     $"delivery fee={deliveryFee}\n" +
                     $"Destination={Destination.GetFullAddress()}\n");
             }
-
+           
 
         }
 
@@ -137,6 +137,17 @@
             { }
 
 
+
+            override public void PrintShippment()
+            {
+
+                Console.WriteLine($"Standard Shippment information :\n" +
+                    $"tracking code={TrackingCode}\n" +
+                    $"weight={Weight}\n" +
+                    $"description={Desciption}\n" +
+                    $"delivery fee={DeliveryFee}\n" +
+                    $"Destination={Destination.GetFullAddress()}\n");
+            }
 
 
         }
@@ -155,6 +166,25 @@
                 ExtraFree = extraFree;
             }
 
+
+
+            override public void PrintShippment()
+            {
+
+                Console.WriteLine($"express Shippment information :\n" +
+                    $"tracking code={TrackingCode}\n" +
+                    $"weight={Weight}\n" +
+                    $"description={Desciption}\n" +
+                    $"delivery fee={DeliveryFee}\n" +
+                    $"extra={ExtraFree}"+
+                    
+                    $"Destination={Destination.GetFullAddress()}\n") ;
+            }
+
+            public void GenerateCustomsReport()
+            {
+
+            }
 
         }
 
@@ -175,7 +205,7 @@
 
             }
 
-            private decimal customfee;
+            protected decimal customfee;
             public decimal CustomFee
             {
                 get { return customfee; }
@@ -200,8 +230,68 @@
                 CustomFee = customFee;
                 DestinatinoCountry = dest_Country;
             }
+
+            public override void PrintShippment()
+            {
+
+                Console.WriteLine($"Standard Shippment information :\n" +
+                    $"tracking code={TrackingCode}\n" +
+                    $"weight={Weight}\n" +
+                    $"description={Desciption}\n" +
+                    $"delivery fee={DeliveryFee}\n" +
+                    $"extree fees={customfee}"+
+                    $"Destination={Destination.GetFullAddress()}\n");
+            
+            }
+
+            public virtual void GenerateCustomsReport()
+            {
+                PrintShippment();
+            }
+
         }
 
+
+        public class PirrorityInternationalShipment :internationalShipment
+        {
+
+            public PirrorityInternationalShipment(string trackingCode) : base(trackingCode)
+            { }
+
+            public PirrorityInternationalShipment(string trackingCode, string description, float weight, decimal deliveryFee, DeliveryAddress destination, string dest_Country, decimal customFee)
+                : base(trackingCode, description, weight, deliveryFee, destination, dest_Country, customFee)
+            { }
+            
+                
+            public sealed override void GenerateCustomsReport()
+            {
+                Console.WriteLine($"Pirrority International Shippment information :\n" +
+                                  $"tracking code={TrackingCode}\n" +
+                                  $"weight={Weight}\n" +
+                                  $"description={Desciption}\n" +
+                                  $"delivery fee={DeliveryFee}\n" +
+                                  $"extra={customfee}" +
+
+                                  $"Destination={Destination.GetFullAddress()}\n");
+            }
+
+           
+
+        }
+
+        
+        public sealed class CompleltedShipment : Shipment
+        {
+
+            public CompleltedShipment(string trackingCode) : base(trackingCode)
+            { }
+
+            public CompleltedShipment(string trackingCode, string description, float weight, decimal deliveryFee, DeliveryAddress destination, decimal extraFree)
+                : base(trackingCode, description, weight, deliveryFee, destination)
+            { }
+               
+            
+        }
         public class DeliveryCenter
         {
             private Shipment[] Shipments;
@@ -330,7 +420,9 @@
 
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello, World!");
+           
+           
+
         }
     }
 }
