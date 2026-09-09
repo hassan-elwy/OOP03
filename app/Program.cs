@@ -24,6 +24,23 @@
     2-data is binded during runtime 
      */
 
+    #region question 2
+    /*
+    
+    1-sealed keyword : indicates that the class wouldn't be inherited 
+
+    2-
+    sealed class can't be inherited from other childs
+    sealed methods can't be overriden from other childs
+
+    3-sealed methods can't be overriden because it keeps the implementation of method from any change 
+
+    
+
+     */
+
+
+    #endregion
 
     #endregion
     internal class Program
