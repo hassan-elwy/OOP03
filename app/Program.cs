@@ -22,6 +22,15 @@
             }
         }
 
+        public static class DeliveryHelper
+        {
+           public static void printShipments(Shipment shipment)
+            {
+                shipment.PrintShippment();
+            }
+    
+        }
+
         public class Shipment
         {
             private string trackingCode;
@@ -105,6 +114,16 @@
 
             }
 
+            public void updateWeight(float weight)
+            {
+                this.weight = weight;
+            }
+
+            public void updateWeight(float weight,float packageWeight)
+            {
+                this.weight = weight + packageWeight;
+
+            }
             public void updateDeliveryFee(decimal newFee)
             {
                 if (newFee > 0)
@@ -234,7 +253,7 @@
             public override void PrintShippment()
             {
 
-                Console.WriteLine($"Standard Shippment information :\n" +
+                Console.WriteLine($"international Shippment information :\n" +
                     $"tracking code={TrackingCode}\n" +
                     $"weight={Weight}\n" +
                     $"description={Desciption}\n" +
@@ -420,7 +439,35 @@
 
         static void Main(string[] args)
         {
-           
+            DeliveryCenter DC=new DeliveryCenter("joy");
+            
+            StandardShipment standardshippment = new StandardShipment("shoo01", "laptop", 3, 80, new DeliveryAddress("cario", "3bas", 3));
+            ExpressShipment expressShippment = new ExpressShipment("sh002", "mobile", 2, 60, new DeliveryAddress("alex", "stanly", 3), 30);
+            internationalShipment internationalShipment = new internationalShipment("sh003", "TV", 8, 120, new DeliveryAddress("giza", "faisl", 3), "germany", 100);
+            
+            DC.AddShipment(standardshippment);
+            DC.AddShipment(expressShippment);
+            DC.AddShipment(internationalShipment);
+
+            
+            Console.WriteLine("============print===========");
+            DC.PrintALlShipments();
+
+            Console.WriteLine("=============print using helper=============");
+            DeliveryHelper.printShipments(standardshippment);
+            DeliveryHelper.printShipments(expressShippment);
+            DeliveryHelper.printShipments(internationalShipment);
+
+            Console.WriteLine("========printing after adjusting weight");
+            standardshippment.updateWeight(4);
+            Console.WriteLine("first overload:");
+            standardshippment.PrintShippment();
+            Console.WriteLine("second overload");
+            expressShippment.updateWeight(4,4);
+            standardshippment.PrintShippment();
+
+
+
            
 
         }
