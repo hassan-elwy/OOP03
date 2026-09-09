@@ -1,5 +1,31 @@
 ﻿namespace app
 {
+    #region question 1
+    /*
+    
+    A:
+   
+    Method overloading
+    repeating same function name while changing paramter types , paramter number or paramter order 
+     
+    Method overriding:
+    
+    repeating same function name in child while it exists in the parent,
+     keyword "override" indicate that same function would have different implmentation in chilld
+
+
+    B:
+    static binding:
+    1-happen in overloading
+    2-data is binded during compile time
+
+    dynamic bidning:
+    1-happen at run time
+    2-data is binded during runtime 
+     */
+
+
+    #endregion
     internal class Program
     {
 
